@@ -1,7 +1,5 @@
 package com.lcc.demo.concurrent.threadpool;
 
-import static org.junit.Assert.*;
-
 import com.lcc.demo.concurrent.ConcurrentApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,10 +17,23 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class ThreadPoolTestTest {
 
   @Autowired
-  ThreadPoolTest threadPoolTest;
+  private ThreadPoolTest threadPoolTest;
+  @Autowired
+  private ThreadPoolTest1 threadPoolTest1;
 
+  /**
+   * 线程池测试.
+   */
   @Test
   public void executorsTest() {
     threadPoolTest.executorsTest();
+  }
+
+  /**
+   * Spring依赖注入单例测试.
+   */
+  @Test
+  public void springSingleTest() {
+    System.out.println(threadPoolTest.executor == threadPoolTest1.executor);
   }
 }

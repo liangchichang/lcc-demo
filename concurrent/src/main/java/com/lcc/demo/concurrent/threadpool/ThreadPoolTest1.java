@@ -7,17 +7,11 @@ import org.springframework.stereotype.Component;
 /**
  * @author Lcc
  * @author Shenzhen Greatonce Co Ltd
- * @version 2018/10/26
+ * @version 2018/10/27
  */
 @Component
-public class ThreadPoolTest {
+public class ThreadPoolTest1 {
 
   @Autowired
   public Executor executor;
-
-  public void executorsTest() {
-    for (int i = 0; i < 100; i++) {
-      executor.execute(new LccJob(i));
-    }
-  }
 }
