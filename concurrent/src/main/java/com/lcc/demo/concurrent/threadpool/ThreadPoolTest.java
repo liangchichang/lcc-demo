@@ -15,5 +15,9 @@ public class ThreadPoolTest {
   @Autowired
   private Executor executor;
 
-
+  public void executorsTest() {
+    for (int i = 0; i < 100; i++) {
+      executor.execute(new LccJob(i));
+    }
+  }
 }

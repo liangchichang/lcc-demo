@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class LccThreadFactory implements ThreadFactory {
 
-  private final AtomicInteger integer = new AtomicInteger(0);
+  private final AtomicInteger integer = new AtomicInteger(1);
 
   @Override
   public Thread newThread(Runnable r) {
