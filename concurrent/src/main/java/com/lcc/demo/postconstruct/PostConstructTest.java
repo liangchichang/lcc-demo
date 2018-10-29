@@ -1,4 +1,4 @@
-package com.lcc.demo.concurrent.postconstruct;
+package com.lcc.demo.postconstruct;
 
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;

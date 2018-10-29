@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class DeadLockTest {
 
-  private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60,
+  public static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60,
       TimeUnit.SECONDS, new ArrayBlockingQueue<>(4), new LccThreadFactory("lcc"),
       new CallerRunsPolicy());
 
