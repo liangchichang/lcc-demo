@@ -9,7 +9,7 @@ import com.lcc.demo.Utils.LccThreadPool;
  */
 public class VolatileTest {
 
-  private static boolean stopThreadFlag;
+  private static volatile boolean stopThreadFlag;
 
   public static void main(String[] args) throws InterruptedException {
 
@@ -22,6 +22,7 @@ public class VolatileTest {
     });
     Thread.sleep(10L);
     stopThreadFlag = true;
-    System.out.println(String.format("%s线程结束",Thread.currentThread().getName()));
+    System.out.println(String.format("%s线程结束", Thread.currentThread().getName()));
+    LccThreadPool.getTheadPool().shutdown();
   }
 }

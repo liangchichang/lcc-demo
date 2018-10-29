@@ -2,7 +2,6 @@ package com.lcc.demo.Utils;
 
 import com.lcc.demo.concurrent.threadpool.LccThreadFactory;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +16,7 @@ public class LccThreadPool  {
       TimeUnit.SECONDS, new ArrayBlockingQueue<>(4), new LccThreadFactory("lcc"),
       new CallerRunsPolicy());
 
-  public static Executor getTheadPool(){
+  public static ThreadPoolExecutor getTheadPool(){
     return EXECUTOR;
   }
 }

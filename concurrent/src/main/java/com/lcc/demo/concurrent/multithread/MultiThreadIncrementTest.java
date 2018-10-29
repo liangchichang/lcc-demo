@@ -1,7 +1,5 @@
 package com.lcc.demo.concurrent.multithread;
 
-import com.lcc.demo.Utils.LccThreadPool;
-
 /**
  * @author Lcc
  * @author Shenzhen Greatonce Co Ltd
