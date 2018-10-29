@@ -30,6 +30,6 @@ public class ThreadPoolConfiguration {
   public Executor executorInit() {
     return new ThreadPoolExecutor(corePoolSize, maxPoolSize, aliveTimes, TimeUnit.SECONDS,
         new ArrayBlockingQueue<>(blockingQueueSize),
-        new LccThreadFactory(), new CallerRunsPolicy());
+        new LccThreadFactory("yby"), new CallerRunsPolicy());
   }
 }
