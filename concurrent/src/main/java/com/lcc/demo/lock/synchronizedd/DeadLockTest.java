@@ -1,4 +1,4 @@
-package com.lcc.demo.concurrent.synchronizedd;
+package com.lcc.demo.lock.synchronizedd;
 
 import com.lcc.demo.concurrent.threadpool.LccThreadFactory;
 import java.util.concurrent.ArrayBlockingQueue;
