@@ -1,6 +1,6 @@
 package com.lcc.demo.concurrent.multithread;
 
-import com.lcc.demo.lock.synchronizedd.DeadLockTest;
+import com.lcc.demo.Utils.LccThreadPool;
 
 /**
  * @author Lcc
@@ -9,20 +9,19 @@ import com.lcc.demo.lock.synchronizedd.DeadLockTest;
  */
 public class VolatileTest {
 
-  private static volatile boolean stopThreadFlag;
+  private static boolean stopThreadFlag;
 
   public static void main(String[] args) throws InterruptedException {
 
-    DeadLockTest.EXECUTOR.execute(() -> {
+    LccThreadPool.getTheadPool().execute(() -> {
       int i = 0;
       while (!stopThreadFlag) {
         i++;
-        System.out.println(i);
       }
-      System.out.println("终止死循环");
+      System.out.println(String.format("%s终止死循环,i=%s", Thread.currentThread().getName(), i));
     });
-
-    Thread.sleep(1000L);
+    Thread.sleep(10L);
     stopThreadFlag = true;
+    System.out.println(String.format("%s线程结束",Thread.currentThread().getName()));
   }
 }

@@ -1,10 +1,6 @@
 package com.lcc.demo.lock.synchronizedd;
 
-import com.lcc.demo.concurrent.threadpool.LccThreadFactory;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
-import java.util.concurrent.TimeUnit;
+import com.lcc.demo.Utils.LccThreadPool;
 
 /**
  * @author Lcc
@@ -13,13 +9,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class DeadLockTest {
 
-  public static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60,
-      TimeUnit.SECONDS, new ArrayBlockingQueue<>(4), new LccThreadFactory("lcc"),
-      new CallerRunsPolicy());
-
   public static void main(String[] args) {
-    EXECUTOR.execute(new DeadLockSample("lcc1", "lcc2"));
-    EXECUTOR.execute(new DeadLockSample("lcc2", "lcc1"));
+    LccThreadPool.getTheadPool().execute(new DeadLockSample("lcc1", "lcc2"));
+    LccThreadPool.getTheadPool().execute(new DeadLockSample("lcc2", "lcc1"));
   }
 
   private static class DeadLockSample implements Runnable {
