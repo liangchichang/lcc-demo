@@ -11,6 +11,7 @@ public class VolatileTest {
 
   private static volatile boolean stopThreadFlag;
 
+
   public static void main(String[] args) throws InterruptedException {
 
     LccThreadPool.getTheadPool().execute(() -> {
