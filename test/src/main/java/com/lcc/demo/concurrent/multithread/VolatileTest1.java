@@ -4,6 +4,8 @@ import com.lcc.demo.Utils.LccThreadPool;
 
 /**
  * @author lcc
+ *
+ * 拥有volatile关键字的变量在多线程之间的可见性实验1
  */
 public class VolatileTest1 {
 

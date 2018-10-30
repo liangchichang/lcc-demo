@@ -3,6 +3,8 @@ package com.lcc.demo.concurrent.multithread;
 /**
  * @author Lcc
  * @version 2018/10/30
+ *
+ * 拥有volatile关键字的变量在多线程之间的可见性实验2
  */
 public class VolatileTest2 {
 
@@ -17,10 +19,11 @@ public class VolatileTest2 {
 
 class VolatileTestTask extends Thread {
 
-  private boolean run = true;
+  private volatile boolean isRun = true;
 
   @Override
   public void run() {
+    System.out.println(Thread.currentThread().getName() + "开始进入死循环");
     while (isRun()) {
 
     }
@@ -28,10 +31,11 @@ class VolatileTestTask extends Thread {
   }
 
   public boolean isRun() {
-    return run;
+    return isRun;
   }
 
   public void stopRun() {
-    this.run = false;
+    System.out.println(Thread.currentThread().getName() + "修改运行状态为暂停");
+    this.isRun = false;
   }
 }
