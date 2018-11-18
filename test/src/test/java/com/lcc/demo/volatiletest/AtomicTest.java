@@ -1,10 +1,10 @@
 package com.lcc.demo.volatiletest;
 
-import java.util.Arrays;
-
 /**
  * @author Lcc
  * @version 2018/11/10
+ *
+ * 这个测试为了测试在不同位数jvm下long和double类型操作的原子性
  */
 public class AtomicTest extends Thread {
 
