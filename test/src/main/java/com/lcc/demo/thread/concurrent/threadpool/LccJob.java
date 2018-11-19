@@ -1,4 +1,4 @@
-package com.lcc.demo.concurrent.threadpool;
+package com.lcc.demo.thread.concurrent.threadpool;
 
 /**
  * @author Lcc

@@ -1,6 +1,6 @@
-package com.lcc.demo.concurrent.multithread;
+package com.lcc.demo.thread.concurrent.multithread;
 
-import com.lcc.demo.Utils.LccThreadPool;
+import com.lcc.demo.thread.Utils.LccThreadPool;
 
 /**
  * @author lcc

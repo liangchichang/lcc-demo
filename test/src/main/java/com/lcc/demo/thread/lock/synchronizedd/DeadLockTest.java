@@ -1,6 +1,6 @@
-package com.lcc.demo.lock.synchronizedd;
+package com.lcc.demo.thread.lock.synchronizedd;
 
-import com.lcc.demo.Utils.LccThreadPool;
+import com.lcc.demo.thread.Utils.LccThreadPool;
 
 /**
  * @author Lcc

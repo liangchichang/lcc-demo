@@ -1,6 +1,6 @@
-package com.lcc.demo.Utils;
+package com.lcc.demo.thread.Utils;
 
-import com.lcc.demo.concurrent.threadpool.LccThreadFactory;
+import com.lcc.demo.thread.concurrent.threadpool.LccThreadFactory;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;

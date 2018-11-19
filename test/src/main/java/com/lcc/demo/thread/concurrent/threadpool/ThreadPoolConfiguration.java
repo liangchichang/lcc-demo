@@ -1,4 +1,4 @@
-package com.lcc.demo.concurrent.threadpool;
+package com.lcc.demo.thread.concurrent.threadpool;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executor;

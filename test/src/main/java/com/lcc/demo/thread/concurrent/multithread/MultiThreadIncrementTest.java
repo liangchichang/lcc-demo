@@ -1,4 +1,4 @@
-package com.lcc.demo.concurrent.multithread;
+package com.lcc.demo.thread.concurrent.multithread;
 
 /**
  * @author Lcc

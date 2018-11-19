@@ -1,4 +1,4 @@
-package com.lcc.demo;
+package com.lcc.demo.thread;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
