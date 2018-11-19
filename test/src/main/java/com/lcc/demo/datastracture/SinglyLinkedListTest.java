@@ -19,12 +19,12 @@ public class SinglyLinkedListTest<T> implements List {
 
   @Override
   public int size() {
-    return 0;
+    return nodeCount;
   }
 
   @Override
   public boolean isEmpty() {
-    return false;
+    return first == null;
   }
 
   @Override
@@ -44,6 +44,7 @@ public class SinglyLinkedListTest<T> implements List {
 
   @Override
   public boolean add(Object o) {
+
     return false;
   }
 
@@ -135,12 +136,10 @@ public class SinglyLinkedListTest<T> implements List {
   private static class Node<T> {
 
     T item;
-    Node<T> pre;
     Node<T> next;
 
-    public Node(T item, Node<T> pre, Node<T> next) {
+    public Node(T item, Node<T> next) {
       this.item = item;
-      this.pre = pre;
       this.next = next;
     }
   }
