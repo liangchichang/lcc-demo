@@ -11,7 +11,7 @@ public class LccSinglyLinkedList<T> {
   private transient Node<T> first;
 
   public LccSinglyLinkedList() {
-    this.first = null;
+    first = null;
   }
 
   /**
@@ -50,7 +50,7 @@ public class LccSinglyLinkedList<T> {
       first = new Node<>(t, null);
       return true;
     }
-    Node<T> tNode = this.first;
+    Node<T> tNode = first;
     while (tNode.next != null) {
       tNode = tNode.next;
     }
@@ -62,7 +62,25 @@ public class LccSinglyLinkedList<T> {
    * 添加到指定节点.
    */
   public boolean add(T t, int index) {
-    if (index < 0 ||index>)
+    if (index < 0) {
+      throw new IndexOutOfBoundsException();
+    }
+    if (first == null) {
+      first = new Node<>(t, null);
+      return true;
+    }
+    Node<T> tNode = first;
+    int count = 0;
+    while (tNode.next != null && count++ != index) {
+      tNode = tNode.next;
+    }
+    if (count == index) {
+      Node<T> previous = findPreviousByNode(tNode);
+      previous.next = new Node<>(t, tNode.next);
+      return true;
+    } else {
+      throw new IndexOutOfBoundsException();
+    }
   }
 
   /**
@@ -70,6 +88,22 @@ public class LccSinglyLinkedList<T> {
    */
   public boolean delete(T t) {
     Node<T> node = findByValue(t);
+    return delete(node);
+  }
+
+  /**
+   * 删除指定位置的索引.
+   */
+  public boolean delete(int index) {
+    if (index == 0) {
+      first = null;
+      return true;
+    }
+    Node<T> node = findByIndex(index);
+    return delete(node);
+  }
+
+  private boolean delete(Node<T> node) {
     if (node == null) {
       return false;
     }
@@ -79,16 +113,17 @@ public class LccSinglyLinkedList<T> {
   }
 
   /**
-   * 删除指定位置的索引.
-   */
-  public boolean delete(int index) {
-  }
-
-  /**
    * 获取最后的值.
    */
   public T getLast() {
-    return last == null ? null : last.item;
+    Node<T> tNode = first;
+    if (tNode == null) {
+      return null;
+    }
+    while (tNode.next != null) {
+      tNode = tNode.next;
+    }
+    return tNode.item;
   }
 
   public T getfirst() {
@@ -96,7 +131,7 @@ public class LccSinglyLinkedList<T> {
   }
 
   private Node<T> findByIndex(int index) {
-    Node<T> tNode = this.first;
+    Node<T> tNode = first;
     int flag = 0;
     while (tNode != null && flag++ != index) {
       tNode = tNode.next;
@@ -105,7 +140,7 @@ public class LccSinglyLinkedList<T> {
   }
 
   private Node<T> findByValue(T t) {
-    Node<T> node = this.first;
+    Node<T> node = first;
     while (node != null && !node.item.equals(t)) {
       node = node.next;
     }
@@ -113,7 +148,7 @@ public class LccSinglyLinkedList<T> {
   }
 
   private Node<T> findPreviousByNode(Node<T> node) {
-    Node<T> tNode = this.first;
+    Node<T> tNode = first;
     while (tNode != null && !tNode.next.equals(node)) {
       tNode = tNode.next;
     }
