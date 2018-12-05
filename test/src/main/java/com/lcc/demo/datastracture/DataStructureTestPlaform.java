@@ -10,7 +10,7 @@ public class DataStructureTestPlaform {
 
     LccSinglyLinkedList<String> list = new LccSinglyLinkedList<>();
     list.addFirst("1");
-    list.add("2", 0);
+    list.addLast("2");
     list.addFirst("3");
     list.delete(0);
     System.out.println(list.size());

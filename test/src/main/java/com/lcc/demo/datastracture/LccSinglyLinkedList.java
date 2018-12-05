@@ -95,8 +95,11 @@ public class LccSinglyLinkedList<T> {
    * 删除指定位置的索引.
    */
   public boolean delete(int index) {
+    if (first == null) {
+      return true;
+    }
     if (index == 0) {
-      first = null;
+      first = first.next;
       return true;
     }
     Node<T> node = findByIndex(index);
@@ -148,8 +151,11 @@ public class LccSinglyLinkedList<T> {
   }
 
   private Node<T> findPreviousByNode(Node<T> node) {
+    if (first == null) {
+      return null;
+    }
     Node<T> tNode = first;
-    while (tNode != null && !tNode.next.equals(node)) {
+    while (tNode.next != null && !tNode.next.equals(node)) {
       tNode = tNode.next;
     }
     return tNode;
