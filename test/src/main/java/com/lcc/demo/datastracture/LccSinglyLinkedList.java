@@ -87,31 +87,50 @@ public class LccSinglyLinkedList<T> {
    * 按值删除(只删除第一次出现的值).
    */
   public boolean delete(T t) {
-    Node<T> node = findByValue(t);
-    return delete(node);
+    if (first == null) {
+      return false;
+    }
+    //快指针
+    Node<T> p = first;
+    //慢指针
+    Node<T> q = null;
+    while (p != null && !p.item.equals(t)) {
+      q = p;
+      p = p.next;
+    }
+    if (p == null) {
+      return false;
+    }
+    if (q == null) {
+      first = first.next;
+    } else {
+      q.next = q.next.next;
+    }
+    return true;
   }
 
   /**
-   * 删除指定位置的索引.
+   * todo 删除指定位置的索引.
    */
   public boolean delete(int index) {
-    if (first == null) {
-      return true;
-    }
-    if (index == 0) {
-      first = first.next;
-      return true;
-    }
-    Node<T> node = findByIndex(index);
-    return delete(node);
+    return false;
   }
 
   private boolean delete(Node<T> node) {
-    if (node == null) {
+    if (node == null || first == null) {
       return false;
     }
-    Node<T> tNode = findPreviousByNode(node);
-    tNode.next = node.next;
+    if (node != first) {
+      first = first.next;
+    }
+    Node<T> q = first;
+    while (q != null && q.next != node) {
+      q = q.next;
+    }
+    if (q == null) {
+      return false;
+    }
+    q.next = q.next.next;
     return true;
   }
 
@@ -147,7 +166,7 @@ public class LccSinglyLinkedList<T> {
     while (node != null && !node.item.equals(t)) {
       node = node.next;
     }
-    return null;
+    return node;
   }
 
   private Node<T> findPreviousByNode(Node<T> node) {

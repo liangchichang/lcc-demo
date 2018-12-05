@@ -12,7 +12,7 @@ public class DataStructureTestPlaform {
     list.addFirst("1");
     list.addLast("2");
     list.addFirst("3");
-    list.delete(0);
+    list.delete("3");
     System.out.println(list.size());
     System.out.println(list.getfirst());
     System.out.println(list.getLast());
