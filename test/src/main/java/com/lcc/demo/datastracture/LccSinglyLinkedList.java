@@ -94,6 +94,7 @@ public class LccSinglyLinkedList<T> {
     Node<T> p = first;
     //慢指针
     Node<T> q = null;
+    //跳出条件：快指针走到末尾或找到相同的值
     while (p != null && !p.item.equals(t)) {
       q = p;
       p = p.next;
@@ -101,6 +102,7 @@ public class LccSinglyLinkedList<T> {
     if (p == null) {
       return false;
     }
+    //q为null说明是第一个
     if (q == null) {
       first = first.next;
     } else {
@@ -124,7 +126,9 @@ public class LccSinglyLinkedList<T> {
       first = first.next;
     }
     Node<T> q = first;
+    //跳出条件：到末尾或找到相同节点
     while (q != null && q.next != node) {
+      //不把判断写在循环中，省掉每次循环都判断一次
       q = q.next;
     }
     if (q == null) {
