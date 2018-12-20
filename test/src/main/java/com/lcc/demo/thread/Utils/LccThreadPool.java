@@ -10,13 +10,17 @@ import java.util.concurrent.TimeUnit;
  * @author Lcc
  * @version 2018/10/29
  */
-public class LccThreadPool  {
+public class LccThreadPool {
 
-  private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60,
+  private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(4, 4, 60,
       TimeUnit.SECONDS, new ArrayBlockingQueue<>(4), new LccThreadFactory("lcc"),
       new CallerRunsPolicy());
 
-  public static ThreadPoolExecutor getTheadPool(){
+  public static ThreadPoolExecutor getTheadPool() {
     return EXECUTOR;
+  }
+
+  public static void shutDown() {
+    EXECUTOR.shutdownNow();
   }
 }
