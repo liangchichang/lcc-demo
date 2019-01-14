@@ -1,4 +1,4 @@
-package com.lcc.demo.thread.lock.wait_notify;
+package com.lcc.demo.thread.lock.waitandnotify;
 
 /**
  * @author lcc
