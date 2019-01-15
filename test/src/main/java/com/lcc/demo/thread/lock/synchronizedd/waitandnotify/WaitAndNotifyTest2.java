@@ -20,26 +20,29 @@ public class WaitAndNotifyTest2 {
     System.out.println("启动线程：thread1---" + thread1.getState());
     System.out.println("启动线程：thread2---" + thread2.getState());
 
-    thread1.join();
-    thread2.join();
+    Thread.sleep(5000);
+    System.exit(1);
   }
 
   private static class Job implements Runnable {
 
     @Override
-    public synchronized void run() {
+    public void run() {
       try {
-        while (true) {
-          System.out.println("当前执行线程：" + Thread.currentThread().getName());
-          if ("thread1".equals(Thread.currentThread().getName())) {
+        synchronized ("1") {
+          while (true) {
             Thread.sleep(1000);
-            System.out.println("线程1开始等待");
-            this.wait();
-            System.out.println("线程1状态：" + Thread.currentThread().getState());
-          } else {
-            Thread.sleep(1000);
-            System.out.println("线程2开始通知线程1醒来");
-            this.notifyAll();
+            if ("thread1".equals(Thread.currentThread().getName())) {
+              System.out.println("线程1通知线程2醒来");
+              "1".notify();
+              System.out.println("线程1开始等待");
+              "1".wait();
+            } else {
+              System.out.println("线程2开始通知线程1醒来");
+              "1".notify();
+              System.out.println("线程2开始等待");
+              "1".wait();
+            }
           }
         }
       } catch (InterruptedException e) {
