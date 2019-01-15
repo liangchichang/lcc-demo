@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author Lcc
  * @version 2019/1/15
  *
- * volatile禁止指令重排实验（实践验证失败）.
+ * volatile禁止指令重排实验（实践验证失败，无法重现指令重排下的bug）.
  */
 public class VolatileTest4 implements Runnable {
 
