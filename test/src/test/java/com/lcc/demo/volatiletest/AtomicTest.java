@@ -76,7 +76,7 @@ public class AtomicTest extends Thread {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) {
     Thread thread1 = new AtomicTest(0);
     Thread thread2 = new AtomicTest(1);
     thread1.start();

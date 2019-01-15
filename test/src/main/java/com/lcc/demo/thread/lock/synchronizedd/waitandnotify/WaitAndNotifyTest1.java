@@ -1,10 +1,10 @@
-package com.lcc.demo.thread.lock.waitandnotify;
+package com.lcc.demo.thread.lock.synchronizedd.waitandnotify;
 
 /**
  * @author lcc
  * @version 2019/1/14
  */
-public class WaitAndNotifyTest {
+public class WaitAndNotifyTest1 {
 
   public static void main(String[] args) {
     Killer killer1 = new Killer();

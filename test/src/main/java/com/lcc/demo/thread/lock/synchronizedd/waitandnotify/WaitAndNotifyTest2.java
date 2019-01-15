@@ -1,10 +1,10 @@
-package com.lcc.demo.thread.test;
+package com.lcc.demo.thread.lock.synchronizedd.waitandnotify;
 
 /**
  * @author lcc
  * @version 2018/12/14
  */
-public class ThreadWaitAndNotifyTest {
+public class WaitAndNotifyTest2 {
 
   public static void main(String[] args) throws InterruptedException {
 

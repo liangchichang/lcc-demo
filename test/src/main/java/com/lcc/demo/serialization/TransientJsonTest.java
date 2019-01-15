@@ -1,4 +1,4 @@
-package com.lcc.demo.thread.serialization;
+package com.lcc.demo.serialization;
 
 import com.alibaba.fastjson.JSON;
 

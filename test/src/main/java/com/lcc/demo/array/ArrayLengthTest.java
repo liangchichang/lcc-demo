@@ -1,4 +1,4 @@
-package com.lcc.demo.thread.normaltest;
+package com.lcc.demo.array;
 
 import java.util.ArrayList;
 
