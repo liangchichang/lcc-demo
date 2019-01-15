@@ -4,7 +4,7 @@ package com.lcc.demo.thread.concurrent.multithread;
  * @author Lcc
  * @version 2018/10/30
  *
- * 拥有volatile关键字的变量在多线程之间的可见性实验2
+ * volatile可见性实验2.
  */
 public class VolatileTest2 {
 

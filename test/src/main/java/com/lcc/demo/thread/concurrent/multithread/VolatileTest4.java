@@ -1,17 +1,24 @@
 package com.lcc.demo.thread.concurrent.multithread;
 
+import com.lcc.demo.thread.Utils.LccThreadPool;
+import java.util.concurrent.ThreadPoolExecutor;
+
 /**
  * @author Lcc
  * @version 2019/1/15
+ *
+ * volatile禁止指令重排实验（实践验证失败）.
  */
-public class VolatileTest4 {
+public class VolatileTest4 implements Runnable {
 
-  private volatile static VolatileTest4 singleTonInstance = null;
+  private static VolatileTest4 singleTonInstance = null;
+
+  private int i = 0;
 
   private VolatileTest4() {
   }
 
-  public VolatileTest4 getSingleTonInstance() {
+  private VolatileTest4 getSingleTonInstance() {
     if (singleTonInstance == null) {
       synchronized ("1") {
         if (singleTonInstance == null) {
@@ -20,6 +27,39 @@ public class VolatileTest4 {
       }
     }
     return singleTonInstance;
+  }
+
+  private void test() {
+    System.out.println(this.toString());
+  }
+
+  @Override
+  public void run() {
+    VolatileTest4 instance = getSingleTonInstance();
+    instance.test();
+  }
+
+  public static void main(String[] args) {
+    ThreadPoolExecutor theadPool = LccThreadPool.getTheadPool();
+    for (int i = 0; i < 100; i++) {
+      theadPool.execute(new VolatileTest4());
+    }
+    System.exit(1);
+  }
+
+  public int getI() {
+    return i;
+  }
+
+  public void setI(int i) {
+    this.i = i;
+  }
+
+  @Override
+  public String toString() {
+    return "VolatileTest4{" +
+        "i=" + i +
+        '}';
   }
 }
 

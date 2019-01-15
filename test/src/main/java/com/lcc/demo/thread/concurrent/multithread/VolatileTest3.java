@@ -5,7 +5,7 @@ package com.lcc.demo.thread.concurrent.multithread;
  * @author lcc
  * @version 2018/10/30
  *
- * volatile关键字不具有原子性实验
+ * volatile不保证原子性实验.
  */
 public class VolatileTest3 extends Thread {
 

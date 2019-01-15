@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class LccThreadPool {
 
-  private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(4, 4, 60,
+  private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(100, 1000, 60,
       TimeUnit.SECONDS, new ArrayBlockingQueue<>(4), new LccThreadFactory("lcc"),
       new CallerRunsPolicy());
 

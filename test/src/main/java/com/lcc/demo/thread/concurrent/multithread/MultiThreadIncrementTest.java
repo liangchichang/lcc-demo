@@ -4,6 +4,8 @@ package com.lcc.demo.thread.concurrent.multithread;
  * @author Lcc
  * @author Shenzhen Greatonce Co Ltd
  * @version 2018/10/29
+ *
+ * 多线程操作同一变量不安全性实验.
  */
 public class MultiThreadIncrementTest {
 
