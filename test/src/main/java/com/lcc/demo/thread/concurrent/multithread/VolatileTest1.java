@@ -4,6 +4,7 @@ import com.lcc.demo.thread.Utils.LccThreadPool;
 
 /**
  * @author lcc
+ * @version 2018/10/30
  *
  * volatile可见性实验1.
  */
