@@ -1,7 +1,5 @@
 package com.lcc.demo.thread.concurrent.multithread;
 
-import com.lcc.demo.thread.Utils.LccThreadPool;
-
 /**
  * @author lcc
  * @version 2018/10/30
@@ -16,14 +14,13 @@ public class VolatileTest1 {
 
   public static void main(String[] args) throws InterruptedException {
 
-    LccThreadPool.getTheadPool().execute(() -> {
+    new Thread(() -> {
       while (stopThreadFlag) {
       }
       System.out.println(String.format("%s终止死循环", Thread.currentThread().getName()));
-    });
+    }).start();
     Thread.sleep(10L);
     stopThreadFlag = false;
     System.out.println(String.format("%s线程结束", Thread.currentThread().getName()));
-    LccThreadPool.getTheadPool().shutdown();
   }
 }
