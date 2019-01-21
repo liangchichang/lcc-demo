@@ -1,7 +1,6 @@
 package com.lcc.demo.thread.concurrent.multithread;
 
 /**
- *
  * @author lcc
  * @version 2018/10/30
  *
@@ -11,12 +10,14 @@ public class VolatileTest3 extends Thread {
 
   private static volatile int count = 0;
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
 
     for (int i = 0; i < 100; i++) {
       VolatileTest3 test = new VolatileTest3();
       test.start();
     }
+    Thread.sleep(2000);
+    System.out.println(count);
   }
 
 //  private void count100() {
@@ -25,11 +26,10 @@ public class VolatileTest3 extends Thread {
 //    }
 //  }
 
-  private synchronized static void count100() {
+  private static void count100() {
     for (int i = 0; i < 100; i++) {
       count++;
     }
-    System.out.println("count=" + count);
   }
 
   @Override

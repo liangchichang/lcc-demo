@@ -2,7 +2,7 @@ package com.lcc.demo.thread.concurrent.multithread;
 
 /**
  * @author lcc
- * @version 2019/1/17
+ * @version 2018/11/12
  *
  * ThreadLocal测试1.
  * 验证：ThreadLocal是线程的副本.
@@ -13,7 +13,6 @@ public class ThreadLocalTest1 extends Thread {
 
   private ThreadLocalTest1(String name) {
     super(name);
-    this.threadLocal.set(name);
   }
 
   public String getThreadLocalString() {
@@ -22,16 +21,20 @@ public class ThreadLocalTest1 extends Thread {
 
   public static void main(String[] args) {
 
-    //虽然被放到ThreadLocal中，但实际key是线程对象
-    ThreadLocalTest1 test1 = new ThreadLocalTest1("线程测试1");
-    ThreadLocalTest1 test2 = new ThreadLocalTest1("线程测试2");
-    ThreadLocalTest1 test3 = new ThreadLocalTest1("线程测试3");
-    ThreadLocalTest1 test4 = new ThreadLocalTest1("线程测试4");
+    ThreadLocalTest1 test1 = new ThreadLocalTest1("测试1");
+    ThreadLocalTest1 test2 = new ThreadLocalTest1("测试2");
+    ThreadLocalTest1 test3 = new ThreadLocalTest1("测试3");
+    ThreadLocalTest1 test4 = new ThreadLocalTest1("测试4");
 
-    System.out.println("test1：" + test1.threadLocal + test1.getThreadLocalString());
-    System.out.println("test2：" + test2.threadLocal + test2.getThreadLocalString());
-    System.out.println("test3：" + test3.threadLocal + test3.getThreadLocalString());
-    System.out.println("test4：" + test4.threadLocal + test4.getThreadLocalString());
+    test1.threadLocal.set("线程测试1");
+    test2.threadLocal.set("线程测试2");
+    test3.threadLocal.set("线程测试3");
+    test4.threadLocal.set("线程测试4");
+
+    System.out.println("测试1：" + test1.threadLocal + "--value:" + test1.getThreadLocalString());
+    System.out.println("测试2：" + test2.threadLocal + "--value:" + test2.getThreadLocalString());
+    System.out.println("测试3：" + test3.threadLocal + "--value:" + test3.getThreadLocalString());
+    System.out.println("测试4：" + test4.threadLocal + "--value:" + test4.getThreadLocalString());
 
     System.out.println("-----------------------------");
 
@@ -44,6 +47,7 @@ public class ThreadLocalTest1 extends Thread {
   @Override
   public void run() {
     System.out.println(
-        Thread.currentThread().getName() + "：" + this.threadLocal + this.getThreadLocalString());
+        Thread.currentThread().getName() + "：" + this.threadLocal + "--value:" + this
+            .getThreadLocalString());
   }
 }
