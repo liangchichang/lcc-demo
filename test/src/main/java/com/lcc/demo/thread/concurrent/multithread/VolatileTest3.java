@@ -26,7 +26,7 @@ public class VolatileTest3 extends Thread {
 //    }
 //  }
 
-  private static void count100() {
+  private static synchronized void count100() {
     for (int i = 0; i < 100; i++) {
       count++;
     }
