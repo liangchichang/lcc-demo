@@ -40,6 +40,13 @@ public class BiasedLockingModel1 extends Thread {
     //1.当同一线程重复访问synchronized时，不会出现加锁和解锁的CAS操作，只会检查对象头的线程id是否当前线程，检查成功，则表示线程已经获得了锁。
     //2.如果多个线程非并发地、前后地访问synchronized时，当后一个线程访问时，对象头中的线程id因为是前一个线程的，因此检查肯定失败。
     //  此时JVM会检查同步对象的对象头的偏斜锁标识是否为1，如果是1，则用CAS操作设置将对象头的偏斜锁指向当前线程。
+    //  CAS操作：
+    //    参考hotspot JVM源码biasedLocking.cpp：
+    //    BiasedLocking::revoke_and_rebias：
+    //    Atomic::cmpxchg_ptr(prototype_header, obj->mark_addr(), mark);
+    //  无法找到JVM设置偏斜锁的源码，因此根据撤销偏斜锁源码猜测代码如下：
+    //    Atomic::cmpxchg_ptr(mark_thread_header, obj->mark_addr(), mark);
+    //  如果对象头的mark实时地址与方法中的mark地址相同，则将带有线程id的mark设置到对象头中
     //3.如果偏斜锁标识为无，则用CAS操作竞争锁，进行锁升级。
     System.out.println("执行线程为：" + Thread.currentThread().getName());
     count++;
