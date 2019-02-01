@@ -1,4 +1,4 @@
-package com.lcc.demo.thread.lock.synchronizedd;
+package com.lcc.demo.thread.lock.synchronize;
 
 /**
  * @author lcc

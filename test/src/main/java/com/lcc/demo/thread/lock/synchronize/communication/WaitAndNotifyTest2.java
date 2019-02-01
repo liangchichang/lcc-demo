@@ -1,4 +1,4 @@
-package com.lcc.demo.thread.lock.synchronizedd.waitandnotify;
+package com.lcc.demo.thread.lock.synchronize.communication;
 
 /**
  * @author lcc
