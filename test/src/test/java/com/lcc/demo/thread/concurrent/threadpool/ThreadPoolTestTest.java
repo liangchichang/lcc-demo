@@ -1,6 +1,6 @@
 package com.lcc.demo.thread.concurrent.threadpool;
 
-import com.lcc.demo.thread.ConcurrentApplication;
+import com.lcc.demo.ConcurrentApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
