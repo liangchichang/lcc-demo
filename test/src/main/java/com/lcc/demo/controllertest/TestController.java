@@ -1,5 +1,6 @@
-package com.lcc.demo.controller;
+package com.lcc.demo.controllertest;
 
+import com.lcc.demo.controllertest.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

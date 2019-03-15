@@ -1,4 +1,4 @@
-package com.lcc.demo.controller;
+package com.lcc.demo.controllertest;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

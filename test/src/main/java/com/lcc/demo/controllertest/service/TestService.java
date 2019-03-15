@@ -1,5 +1,6 @@
-package com.lcc.demo.controller;
+package com.lcc.demo.controllertest.service;
 
+import com.lcc.demo.controllertest.AbstractService;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
  * @version 2019-03-10
  */
 @Service
-public class TestService {
+public class TestService extends AbstractService {
 
   private volatile int version = 0;
 
