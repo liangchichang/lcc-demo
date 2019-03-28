@@ -27,7 +27,7 @@ public class TestService extends AbstractService {
     }
   }
 
-  @PostConstruct
+//  @PostConstruct
   private void test(){
     System.out.println("测试post!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   }

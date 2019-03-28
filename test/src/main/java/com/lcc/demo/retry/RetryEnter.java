@@ -3,6 +3,7 @@ package com.lcc.demo.retry;
 import com.lcc.demo.retry.service.RetryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,5 +38,15 @@ public class RetryEnter {
       });
     }
     return "123";
+  }
+
+  @GetMapping("/test1")
+  public void retryTest1(){
+    try {
+      COUNT_TIMES.set(1);
+      retryService.test();
+    } catch (Exception e) {
+      System.out.println("执行任务失败");
+    }
   }
 }
