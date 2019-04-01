@@ -148,25 +148,31 @@ public class SpringRetryApplication {
   @RequestMapping("/lcc/retry")
   public static class CircuitBreakerRetry {
 
-    private static final RetryState STATE = new DefaultRetryState("circuitBreak", true,
-        new BinaryExceptionClassifier(Collections.singletonList(StatefulRetryException.class)));
+    private static final RetryState STATE = new DefaultRetryState("circuitBreak", false);
     private static final RetryTemplate TEMPLATE = new RetryTemplate();
     int j = 1;
 
     static {
-      CircuitBreakerRetryPolicy policy = new CircuitBreakerRetryPolicy(new AlwaysRetryPolicy());
-      policy.setOpenTimeout(3000);
-      policy.setResetTimeout(10000);
+      CircuitBreakerRetryPolicy policy = new CircuitBreakerRetryPolicy(new SimpleRetryPolicy());
+      policy.setOpenTimeout(1000);
+      policy.setResetTimeout(5000L);
       TEMPLATE.setRetryPolicy(policy);
     }
 
     @GetMapping("/circuitBreak")
-    public void test() throws Exception {
-      TEMPLATE.execute(context -> {
-        System.out
-            .println(String.format(">>>熔断重试第%s次，执行线程：%s", j++, Thread.currentThread().hashCode()));
-        throw new IOException();
-      }, STATE);
+    public void test() throws InterruptedException {
+      for (int i = 0; i < 10; i++) {
+        Thread.sleep(200L);
+        try {
+          TEMPLATE.execute(context -> {
+            System.out.println(String.format(">>>熔断重试第%s次，执行线程：%s", j++, Thread.currentThread().hashCode()));
+            System.out.println();
+            throw new IOException();
+          }, STATE);
+        } catch (Exception e) {
+          System.out.println(e);
+        }
+      }
     }
   }
 }
