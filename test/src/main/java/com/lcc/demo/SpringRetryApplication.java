@@ -4,20 +4,28 @@ import com.lcc.demo.retry.exception.StatefulRetryException;
 import com.lcc.demo.retry.exception.StatelessRetryException;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.classify.BinaryExceptionClassifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.retry.RetryCallback;
 import org.springframework.retry.RetryContext;
 import org.springframework.retry.RetryListener;
 import org.springframework.retry.RetryState;
+import org.springframework.retry.policy.AlwaysRetryPolicy;
+import org.springframework.retry.policy.CircuitBreakerRetryPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.DefaultRetryState;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 public class SpringRetryApplication {
@@ -27,17 +35,44 @@ public class SpringRetryApplication {
   }
 
   @Bean
-  public ApplicationRunner runner(StateLessRetry stateLessRetry, StatefulRetry statefulRetry) {
+  @Order(1)
+  public ApplicationRunner runner(StateLessRetry stateLessRetry, StatefulRetry statefulRetry,
+      CircuitBreakerRetry circuitBreakerRetry) {
     return args -> {
-//      System.out.println(">>>>>>>无状态重试");
-//      try {
-//        stateLessRetry.test();
-//      } catch (StatelessRetryException e) {
-//        System.out.println("无状态重试完毕");
-//      }
-      System.out.println("==================================");
-      System.out.println("有状态重试");
-      statefulRetry.test();
+      for (int i = 1; i <= 3; i++) {
+        System.out.println(String.format(">>>>>第%s次无状态重试开始", i));
+        try {
+          stateLessRetry.test();
+        } catch (StatelessRetryException e) {
+          System.out.println("捕获异常：" + e.getClass().getName());
+        }
+        System.out.println(String.format(">>>>>第%s次无状态重试完毕", i));
+      }
+
+      try {
+        for (int i = 0; i < 3; i++) {
+          System.out.println();
+        }
+        System.out.println("================这是一条该死的分割线==================");
+
+        System.out.println("有状态重试");
+        int i = 1;
+        for (; ; ) {
+          try {
+            statefulRetry.test();
+          } catch (StatefulRetryException e) {
+            System.out.println(String.format("有状态重试完毕，catch：%s次", i++));
+          }
+        }
+      } catch (Exception e) {
+
+      }
+
+      for (int j = 0; j < 3; j++) {
+        System.out.println();
+      }
+      System.out.println("================又是一条该死的分割线==================");
+      circuitBreakerRetry.test();
     };
   }
 
@@ -45,9 +80,13 @@ public class SpringRetryApplication {
   public static class StateLessRetry {
 
     private static final RetryTemplate TEMPLATE = new RetryTemplate();
+    int i = 1;
 
     static {
-      TEMPLATE.setRetryPolicy(new SimpleRetryPolicy());
+      Map<Class<? extends Throwable>, Boolean> unRetryables = new HashMap<>();
+      unRetryables.put(StatelessRetryException.class, true);
+      SimpleRetryPolicy policy = new SimpleRetryPolicy(3, unRetryables);
+      TEMPLATE.setRetryPolicy(policy);
       TEMPLATE.setListeners(new RetryListener[]{
           new RetryListener() {
             @Override
@@ -75,7 +114,8 @@ public class SpringRetryApplication {
 
     void test() throws StatelessRetryException {
       TEMPLATE.execute(context -> {
-        System.out.println(">>>>无状态重试，执行线程：" + Thread.currentThread().hashCode());
+        System.out.println(
+            String.format(">>>>无状态重试第%s次，执行线程：%s", i++, Thread.currentThread().hashCode()));
         throw new StatelessRetryException();
       });
     }
@@ -87,12 +127,14 @@ public class SpringRetryApplication {
     private static final RetryState STATE = new DefaultRetryState("key", false,
         new BinaryExceptionClassifier(Collections.singletonList(StatefulRetryException.class)));
     private static final RetryTemplate TEMPLATE = new RetryTemplate();
-    private static final AtomicInteger ATOMIC_INTEGER = new AtomicInteger(1);
+    int j = 1;
 
     void test() throws Exception {
+      AtomicInteger atomicInteger = new AtomicInteger(1);
       TEMPLATE.execute(context -> {
-        System.out.println(">>>有状态重试，执行线程：" + Thread.currentThread().hashCode());
-        int i = ATOMIC_INTEGER.getAndIncrement();
+        int i = atomicInteger.getAndIncrement();
+        System.out.println(String.format(">>>有状态重试第%s次，执行线程：%s", j++,
+            Thread.currentThread().hashCode()));
         if (i % 2 == 0) {
           throw new StatefulRetryException();
         } else {
@@ -100,7 +142,31 @@ public class SpringRetryApplication {
         }
       }, STATE);
     }
-
   }
 
+  @RestController
+  @RequestMapping("/lcc/retry")
+  public static class CircuitBreakerRetry {
+
+    private static final RetryState STATE = new DefaultRetryState("circuitBreak", true,
+        new BinaryExceptionClassifier(Collections.singletonList(StatefulRetryException.class)));
+    private static final RetryTemplate TEMPLATE = new RetryTemplate();
+    int j = 1;
+
+    static {
+      CircuitBreakerRetryPolicy policy = new CircuitBreakerRetryPolicy(new AlwaysRetryPolicy());
+      policy.setOpenTimeout(3000);
+      policy.setResetTimeout(10000);
+      TEMPLATE.setRetryPolicy(policy);
+    }
+
+    @GetMapping("/circuitBreak")
+    public void test() throws Exception {
+      TEMPLATE.execute(context -> {
+        System.out
+            .println(String.format(">>>熔断重试第%s次，执行线程：%s", j++, Thread.currentThread().hashCode()));
+        throw new IOException();
+      }, STATE);
+    }
+  }
 }
