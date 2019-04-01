@@ -53,15 +53,13 @@ public class SpringRetryApplication {
         for (int i = 0; i < 3; i++) {
           System.out.println();
         }
-        System.out.println("================这是一条该死的分割线==================");
+        System.out.println("================这是一条分割线==================");
 
-        System.out.println("有状态重试");
-        int i = 1;
+        System.out.println("对 【StatefulRetryException】 异常进行有状态重试");
         for (; ; ) {
           try {
             statefulRetry.test();
           } catch (StatefulRetryException e) {
-            System.out.println(String.format("有状态重试完毕，catch：%s次", i++));
           }
         }
       } catch (Exception e) {
@@ -71,7 +69,9 @@ public class SpringRetryApplication {
       for (int j = 0; j < 3; j++) {
         System.out.println();
       }
-      System.out.println("================又是一条该死的分割线==================");
+      System.out.println("================又是一条分割线==================");
+
+      System.out.println("熔断重试策略");
       circuitBreakerRetry.test();
     };
   }
@@ -136,8 +136,10 @@ public class SpringRetryApplication {
         System.out.println(String.format(">>>有状态重试第%s次，执行线程：%s", j++,
             Thread.currentThread().hashCode()));
         if (i % 2 == 0) {
+          System.out.println("抛出异常：StatefulRetryException");
           throw new StatefulRetryException();
         } else {
+          System.out.println("抛出异常：IOException");
           throw new IOException();
         }
       }, STATE);
