@@ -6,6 +6,8 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
 /**
+ * 非重入锁
+ *
  * @author lcc
  * @version 2019/3/8
  */
