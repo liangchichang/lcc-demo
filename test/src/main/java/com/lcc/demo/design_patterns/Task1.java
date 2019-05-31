@@ -1,4 +1,4 @@
-package com.lcc.demo.mode;
+package com.lcc.demo.design_patterns;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
